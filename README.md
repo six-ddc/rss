@@ -55,6 +55,7 @@ type Item struct {
 	Summary string
 	Content string
 	Link    string
+	Author  string
 	Date    time.Time
 	ID      string
 	Read    bool
