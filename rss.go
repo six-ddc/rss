@@ -86,7 +86,8 @@ type Feed struct {
 	Nickname    string              `json:"nickname"` // This is not set by the package, but could be helpful.
 	Title       string              `json:"title"`
 	Description string              `json:"description"`
-	Link        string              `json:"link"`      // Link to the creator's website.
+	Link        string              `json:"link"` // Link to the creator's website.
+	Author      string              `json:"author"`
 	UpdateURL   string              `json:"updateurl"` // URL of the feed itself.
 	Image       *Image              `json:"image"`     // Feed icon.
 	Items       []*Item             `json:"items"`
@@ -177,6 +178,7 @@ type Item struct {
 	Summary    string       `json:"summary"`
 	Content    string       `json:"content"`
 	Link       string       `json:"link"`
+	Author     string       `json:"author"`
 	Date       time.Time    `json:"date"`
 	ID         string       `json:"id"`
 	Enclosures []*Enclosure `json:"enclosures"`
@@ -197,6 +199,7 @@ func (i *Item) Format(indent int) string {
 		fmt.Fprintf(w, "\xff%s\xffTitle:\t%q\n", double, i.Title)
 		fmt.Fprintf(w, "\xff%s\xffSummary:\t%q\n", double, i.Summary)
 		fmt.Fprintf(w, "\xff%s\xffLink:\t%s\n", double, i.Link)
+		fmt.Fprintf(w, "\xff%s\xffAuthor:\t%s\n", double, i.Author)
 		fmt.Fprintf(w, "\xff%s\xffDate:\t%s\n", double, i.Date.Format(DATE))
 		fmt.Fprintf(w, "\xff%s\xffID:\t%s\n", double, i.ID)
 		fmt.Fprintf(w, "\xff%s\xffRead:\t%v\n", double, i.Read)
@@ -207,6 +210,7 @@ func (i *Item) Format(indent int) string {
 		w := buf
 		fmt.Fprintf(w, "%sItem %q\n", single, i.Title)
 		fmt.Fprintf(w, "%s%q\n", double, i.Link)
+		fmt.Fprintf(w, "%s%q\n", double, i.Author)
 		fmt.Fprintf(w, "%s%s\n", double, i.Date.Format(DATE))
 		fmt.Fprintf(w, "%s%q\n", double, i.ID)
 		fmt.Fprintf(w, "%sRead: %v\n", double, i.Read)
